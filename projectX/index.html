@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ExoViewer</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/styles.css" rel="stylesheet">
+
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+
+    <style>
+      .orbit {
+        stroke : #000000;
+        fill : none;
+      }
+      .planet {
+        stroke : #000000;
+        fill : #FFFFFF;
+      }
+      .sun {
+        stroke : #000000;
+        fill : #000000;
+      }
+    </style>
+	</head>
+	<body>
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">ExoViewer</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-6">
+    <h1>Bootstrap starter template</h1>
+
+  <body>
+
+    <div id="planetarium">
+    </div>
+
+    <script type="text/javascript">
+      var w = 750, h = 400;
+      var t0 = Date.now();
+
+      var planets = [
+        { R: 100, r:  5, speed: 5, phi0: 1},
+        { R: 75, r: 10, speed: 2, phi0: 190}
+      ];
+
+
+      var svg = d3.select("#planetarium").insert("svg")
+        .attr("width", w).attr("height", h);
+
+      svg.append("circle").attr("r", 20).attr("cx", w/2)
+        .attr("cy", h/2).attr("class", "sun")
+
+      var container = svg.append("g")
+        .attr("transform", "translate(" + w/2 + "," + h/2 + ")")
+
+      container.selectAll("g.planet").data(planets).enter().append("g")
+        .attr("class", "planet").each(function(d, i) {
+          d3.select(this).append("circle").attr("class", "orbit")
+            .attr("r", d.R);
+          d3.select(this).append("circle").attr("r", d.r).attr("cx",d.R)
+            .attr("cy", 0).attr("class", "planet");
+        });
+
+      d3.timer(function() {
+        var delta = (Date.now() - t0);
+        svg.selectAll(".planet").attr("transform", function(d) {
+          return "rotate(" + d.phi0 + delta * d.speed/200 + ")";
+        });
+      });
+
+    </script>
+
+
+  </body>
+
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="panel panel-default col-md-4">
+    <div class="panel-heading">Kepler 104</div>
+    <div class="panel-body">Panel content</div>
+  </div>
+
+  <div class="panel panel-default col-md-4">
+    <div class="panel-heading">Kepler 104</div>
+    <div class="panel-body">Panel content</div>
+  </div>
+
+  <div class="panel panel-default col-md-4">
+    <div class="panel-heading">Kepler 104</div>
+    <div class="panel-body">Panel content</div>
+  </div>
+</div>
+</div>
+
+
+  
+</div><!-- /.container -->
+	<!-- script references -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
