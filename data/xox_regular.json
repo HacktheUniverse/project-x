@@ -1,18 +1,4 @@
-[
-  {
-    "NAME":"projectX_key",
-    "MINIMUMMASSOFPLANET":"mjupiter",
-    "SEMIMAJORAXIS":"au",
-    "ORBITALPERIOD":"day",
-    "ORBITALECCENTRICITY":null,
-    "ARGUMENTOFPERISTRON":"deg",
-    "TIMEOFPERISTRON":"jd",
-    "VELOCITYSEMIAMPLITUDE":"m/s",
-    "ORBREF":"",
-    "ORBURL":"",
-    "FIRSTREF":"",
-    "FIRSTURL":""
-  },
+{"data": [
   {
     "NAME":"Kepler-107 d",
     "MINIMUMMASSOFPLANET":"",
@@ -68264,3 +68250,4 @@
     "FIRSTURL":""
   }
 ]
+}
