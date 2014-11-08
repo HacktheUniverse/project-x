@@ -1,35 +1,25 @@
 "use strict";
-var app = angular.module('Exoplanet', []);
+var app = angular.module('ExoPlanet', []);
 
-var removeExtraSpaces = function(str){
-    // Turns multiple spaces to one space using regex. 'hi  there   !' = 'hi there !'
-    return str.replace(/ +/g, " ");
-};
-
-var removeCommas = function(str) {
-    // Removes all commas from string.
-    return str.replace(',','');
-};
-
-var isNumber = function(input){
-    return !isNaN(Number(input));
-};
-
-var capitalizeFirstLetter = function(string){
-    if (string === '') return '';
-    return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-var rounded = function(num, numDecimalPlaces){
-    if(typeof numDecimalPlaces === "undefined") numDecimalPlaces = 2;
-    var temp = Math.pow(10, numDecimalPlaces);
-    return Math.round(num * temp) / temp;
-};
-
-
-function ExoCtrl($scope){
+function exoCtrl($scope, $http){
     // Initilize
     $scope.systems = [{'planet': 'mars'}];
+    //alert('HEY I GOT HERE, Next im going to try reading from the data file!');
+    $scope.url = 'data.json';
+
+    $scope.getData = function(url){
+        $http.get(url).success($scope.handleData);
+    };
+
+    $scope.handleData = function(data){
+        console.log(data['test']);
+        return data;
+    };
+
+
+    $scope.planetData = $scope.getData($scope.url);
+    console.log(planetData);
+    alert($scope.planetData['test']);
 };
 
 
