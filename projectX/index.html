@@ -1,260 +1,269 @@
 <!DOCTYPE html>
-<html ng-app="ExoViewer" lang="en">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<meta charset="utf-8">
-		<title>ExoViewer</title>
-		<meta name="generator" content="Bootply" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+<html ng-app="ExoPlanet" lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>ExoViewer</title>
+    <meta name="generator" content="Bootply"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     <link href="css/styles.css" rel="stylesheet">
     <script src="http://d3js.org/d3.v3.min.js"></script>
 
+
     <style>
-      .orbit {
-        stroke : #000000;
-        fill : none;
-      }
-      .planet {
-        stroke : #000000;
-        fill : #085DAD;
-      }
-      .sun {
-        stroke : #000000;
-        fill : #FDB813;
-      }
+        .orbit {
+            stroke: #000000;
+            fill: none;
+        }
+
+        .planet {
+            stroke: #000000;
+            fill: #085DAD;
+        }
+
+        .sun {
+            stroke: #000000;
+            fill: #FDB813;
+        }
     </style>
 
-	</head>
-	<body>
+</head>
+<body class="exo-wrapper">
 <div class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
+    <div class="container"
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
 
-      <a class="navbar-brand" href="#">ExoViewer</a>
+        <a class="navbar-brand" href="#">ExoViewer</a>
     </div>
     <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    <button type="button" style='float:right;' class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        Action <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Another action</a></li>
-        <li><a href="#">Something else here</a></li>
-        <li class="divider"></li>
-        <li><a href="#">Separated link</a></li>
-    </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-  </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button type="button" style='float:right;' class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Action <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+        </ul>
+    </div>
+    <!--/.nav-collapse -->
+</div>
+</div>
 
 <div class="container">
 
 
+    <div class="row">
+        <div class="col-md-8">
+            <div id="planetarium"></div>
+        </div>
+
+        <div class="col-md-4">
 
 
+            <div class="panel panel-default">
+                <div class="panel-heading">Kepler 104</div>
 
-
-
-
-<div class="row">
-  <div class="col-md-8">
-      <div id="planetarium"></div>
-  </div>
-
-  <div class="col-md-4">
-
-
-
-
-  <div class="panel panel-default">
-    <div class="panel-heading">Kepler 104</div>
-
-    <div class="panel-body">
-          <p>    data</p>
+                <div class="panel-body">
+                    <p> data</p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-</div>
 
 
     <script type="text/javascript">
-      var w = 750, h = 400;
-      var t0 = Date.now();
+        var w = 750, h = 400;
+        var t0 = Date.now();
 
-      var planets = [
-        { R: 100, r:  5, speed: 5, phi0: 1},
-        { R: 75, r: 10, speed: 2, phi0: 190}
-      ];
+        var planets = [
+            { R: 100, r: 5, speed: 5, phi0: 1},
+            { R: 75, r: 10, speed: 2, phi0: 190}
+        ];
 
 
-      var svg = d3.select("#planetarium").insert("svg")
-        .attr("width", w).attr("height", h);
+        var svg = d3.select("#planetarium").insert("svg")
+                .attr("width", w).attr("height", h);
 
-      svg.append("circle").attr("r", 20).attr("cx", w/2)
-        .attr("cy", h/2).attr("class", "sun")
+        svg.append("circle").attr("r", 20).attr("cx", w / 2)
+                .attr("cy", h / 2).attr("class", "sun")
 
-      var container = svg.append("g")
-        .attr("transform", "translate(" + w/2 + "," + h/2 + ")")
+        var container = svg.append("g")
+                .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")")
 
-      container.selectAll("g.planet").data(planets).enter().append("g")
-        .attr("class", "planet").each(function(d, i) {
-          d3.select(this).append("circle").attr("class", "orbit")
-            .attr("r", d.R);
-          d3.select(this).append("circle").attr("r", d.r).attr("cx",d.R)
-            .attr("cy", 0).attr("class", "planet");
+        container.selectAll("g.planet").data(planets).enter().append("g")
+                .attr("class", "planet").each(function (d, i) {
+                    d3.select(this).append("circle").attr("class", "orbit")
+                            .attr("r", d.R);
+                    d3.select(this).append("circle").attr("r", d.r).attr("cx", d.R)
+                            .attr("cy", 0).attr("class", "planet");
+                });
+
+        d3.timer(function () {
+            var delta = (Date.now() - t0);
+            svg.selectAll(".planet").attr("transform", function (d) {
+                return "rotate(" + d.phi0 + delta * d.speed / 200 + ")";
+            });
         });
-
-      d3.timer(function() {
-        var delta = (Date.now() - t0);
-        svg.selectAll(".planet").attr("transform", function(d) {
-          return "rotate(" + d.phi0 + delta * d.speed/200 + ")";
-        });
-      });
 
     </script>
 
 
+</div>
 
 
-  </div>
-
-
-  <div data-ng-controller="mainController" class="container">
+<div ng-controller="exoCtrl" class="container">
+    {{ 1+1 }}
+    {{systems}}
     <div class="row">
-      <div class="form-group">
-        <input data-ng-model="query" type="text" class="form-control input-lg" placeholder="eg: 30 usd to namecoin ">
-      </div>
+        <div class="form-group">
+            <input data-ng-model="query" type="text" class="form-control input-lg"
+                   placeholder="eg: 30 usd to namecoin ">
+        </div>
     </div>
 
     <div ng-show="queryStatus.success" class="row">
-      <div class="col-md-6">
+        <div class="col-md-6">
 
-        <div class="panel panel-default text-right">
-          <div class="panel-body">
-            <h3><strong>{{queryStatus.amt}}</strong> {{queryStatus.baseCode}}</h3>
-            <p>{{queryStatus.baseName}} <img src="sprites/blank.gif" class="flag flag-{{queryStatus.baseCode.substr(0,2).toLowerCase()}}" /></p>
-          </div>
-          <div class="panel-footer">{{queryStatus.amtDesc}} </div>
-        </div>
-      </div>
+            <div class="panel panel-default text-right">
+                <div class="panel-body">
+                    <h3><strong>{{queryStatus.amt}}</strong> {{queryStatus.baseCode}}</h3>
 
-      <div class="col-md-6">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <h3><strong>{{queryStatus.convertedAmt}}</strong> {{queryStatus.targetCode}}</h3>
-            <p><img src="sprites/blank.gif" class="flag flag-{{queryStatus.targetCode.substr(0,2).toLowerCase()}}" /> {{queryStatus.targetName}} </p>
-          </div>
-          <div class="panel-footer">{{queryStatus.convertedDesc}} </div>
+                    <p>{{queryStatus.baseName}} <img src="sprites/blank.gif"
+                                                     class="flag flag-{{queryStatus.baseCode.substr(0,2).toLowerCase()}}"/>
+                    </p>
+                </div>
+                <div class="panel-footer">{{queryStatus.amtDesc}}</div>
+            </div>
         </div>
-      </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3><strong>{{queryStatus.convertedAmt}}</strong> {{queryStatus.targetCode}}</h3>
+
+                    <p><img src="sprites/blank.gif"
+                            class="flag flag-{{queryStatus.targetCode.substr(0,2).toLowerCase()}}"/>
+                        {{queryStatus.targetName}} </p>
+                </div>
+                <div class="panel-footer">{{queryStatus.convertedDesc}}</div>
+            </div>
+        </div>
     </div>
 
     <div ng-show="queryStatus.showError" class="row">
-      <div  class="alert alert-warning">
-        <p class="text-center"><strong> {{ queryStatus.errorMsg }}</strong> </p>
-      </div>
+        <div class="alert alert-warning">
+            <p class="text-center"><strong> {{ queryStatus.errorMsg }}</strong></p>
+        </div>
     </div>
-    </div>
-
-
+</div>
 
 
 <div class="row">
 
-<div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">Kepler 104</div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Kepler 104</div>
 
-    <div class="panel-body">
-          <p>
-    Name "NAME":"HAT-P-27 b",
-    Mass (Minimum)"MINIMUMMASSOFPLANET":"0.615135",
-    Semi-Major Axis "SEMIMAJORAXIS":"0.0399488",
-    Orbital Period ORBITALPERIOD":"3.039577",
-    Orbital Eccentiricity "ORBITALECCENTRICITY":0,
-    Argument of Peristron "ARGUMENTOFPERISTRON":"90",
-    Time ofPeristron "TIMEOFPERISTRON":"2455407.9088",
-    Velocity Semi-Amplitde "VELOCITYSEMIAMPLITUDE":"91.2",
-    "ORBREF":"Brown 2012",
-    "ORBURL":"http://adsabs.harvard.edu/abs/2012ApJ...760..139B",
-    "FIRSTREF":"Anderson 2011",
-    "FIRSTURL":"http://adsabs.harvard.edu/abs/2011PASP..123..555A"
-    </p>
+            <div class="panel-body">
+                <p>
+                    Name "NAME":"HAT-P-27 b",
+                    Mass (Minimum)"MINIMUMMASSOFPLANET":"0.615135",
+                    Semi-Major Axis "SEMIMAJORAXIS":"0.0399488",
+                    Orbital Period ORBITALPERIOD":"3.039577",
+                    Orbital Eccentiricity "ORBITALECCENTRICITY":0,
+                    Argument of Peristron "ARGUMENTOFPERISTRON":"90",
+                    Time ofPeristron "TIMEOFPERISTRON":"2455407.9088",
+                    Velocity Semi-Amplitde "VELOCITYSEMIAMPLITUDE":"91.2",
+                    "ORBREF":"Brown 2012",
+                    "ORBURL":"http://adsabs.harvard.edu/abs/2012ApJ...760..139B",
+                    "FIRSTREF":"Anderson 2011",
+                    "FIRSTURL":"http://adsabs.harvard.edu/abs/2011PASP..123..555A"
+                </p>
 
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">Kepler 104</div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Kepler 104</div>
 
-    <div class="panel-body">
-          <p>
-    Name "NAME":"HAT-P-27 b",
-    Mass (Minimum)"MINIMUMMASSOFPLANET":"0.615135",
-    Semi-Major Axis "SEMIMAJORAXIS":"0.0399488",
-    Orbital Period ORBITALPERIOD":"3.039577",
-    Orbital Eccentiricity "ORBITALECCENTRICITY":0,
-    Argument of Peristron "ARGUMENTOFPERISTRON":"90",
-    Time ofPeristron "TIMEOFPERISTRON":"2455407.9088",
-    Velocity Semi-Amplitde "VELOCITYSEMIAMPLITUDE":"91.2",
-    "ORBREF":"Brown 2012",
-    "ORBURL":"http://adsabs.harvard.edu/abs/2012ApJ...760..139B",
-    "FIRSTREF":"Anderson 2011",
-    "FIRSTURL":"http://adsabs.harvard.edu/abs/2011PASP..123..555A"
-    </p>
+            <div class="panel-body">
+                <p>
+                    Name "NAME":"HAT-P-27 b",
+                    Mass (Minimum)"MINIMUMMASSOFPLANET":"0.615135",
+                    Semi-Major Axis "SEMIMAJORAXIS":"0.0399488",
+                    Orbital Period ORBITALPERIOD":"3.039577",
+                    Orbital Eccentiricity "ORBITALECCENTRICITY":0,
+                    Argument of Peristron "ARGUMENTOFPERISTRON":"90",
+                    Time ofPeristron "TIMEOFPERISTRON":"2455407.9088",
+                    Velocity Semi-Amplitde "VELOCITYSEMIAMPLITUDE":"91.2",
+                    "ORBREF":"Brown 2012",
+                    "ORBURL":"http://adsabs.harvard.edu/abs/2012ApJ...760..139B",
+                    "FIRSTREF":"Anderson 2011",
+                    "FIRSTURL":"http://adsabs.harvard.edu/abs/2011PASP..123..555A"
+                </p>
 
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-<div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">Kepler 104</div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Kepler 104</div>
 
-    <div class="panel-body">
-          <p>
-    Name "NAME":"HAT-P-27 b",
-    Mass (Minimum)"MINIMUMMASSOFPLANET":"0.615135",
-    Semi-Major Axis "SEMIMAJORAXIS":"0.0399488",
-    Orbital Period ORBITALPERIOD":"3.039577",
-    Orbital Eccentiricity "ORBITALECCENTRICITY":0,
-    Argument of Peristron "ARGUMENTOFPERISTRON":"90",
-    Time ofPeristron "TIMEOFPERISTRON":"2455407.9088",
-    Velocity Semi-Amplitde "VELOCITYSEMIAMPLITUDE":"91.2",
-    "ORBREF":"Brown 2012",
-    "ORBURL":"http://adsabs.harvard.edu/abs/2012ApJ...760..139B",
-    "FIRSTREF":"Anderson 2011",
-    "FIRSTURL":"http://adsabs.harvard.edu/abs/2011PASP..123..555A"
-    </p>
+            <div class="panel-body">
+                <p>
+                    Name "NAME":"HAT-P-27 b",
+                    Mass (Minimum)"MINIMUMMASSOFPLANET":"0.615135",
+                    Semi-Major Axis "SEMIMAJORAXIS":"0.0399488",
+                    Orbital Period ORBITALPERIOD":"3.039577",
+                    Orbital Eccentiricity "ORBITALECCENTRICITY":0,
+                    Argument of Peristron "ARGUMENTOFPERISTRON":"90",
+                    Time ofPeristron "TIMEOFPERISTRON":"2455407.9088",
+                    Velocity Semi-Amplitde "VELOCITYSEMIAMPLITUDE":"91.2",
+                    "ORBREF":"Brown 2012",
+                    "ORBURL":"http://adsabs.harvard.edu/abs/2012ApJ...760..139B",
+                    "FIRSTREF":"Anderson 2011",
+                    "FIRSTURL":"http://adsabs.harvard.edu/abs/2011PASP..123..555A"
+                </p>
 
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
 
 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.1/angular.min.js"></script>
+<script>
+    (function () {
+        angular.module('ExoPlanet', []).
+                controller('exoCtrl', ['$scope', function ($scope) {
+                    $scope.systems = [
+                        {sol: 'earth'}
+                    ];
+                }]);
+    }());
+</script>
 
 
-
-	<!-- script references -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-	</body>
+<!-- script references -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
 </html>
