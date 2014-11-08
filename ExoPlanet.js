@@ -27,7 +27,7 @@
 //     return Math.round(num * temp) / temp;
 // };
 
-    app.controller('ExoCtrl', ['$scope', function($scope){ 
+    app.controller('exoCtrl', ['$scope', function($scope){ 
         $scope.systems = [{'planet': 'mars'}];
     }]);
 
