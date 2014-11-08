@@ -30,7 +30,7 @@ var rounded = function(num, numDecimalPlaces){
 function ExoCtrl($scope){
     // Initilize
     $scope.systems = [{'planet': 'mars'}];
-}
+};
 
 
 
