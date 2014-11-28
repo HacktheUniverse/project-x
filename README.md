@@ -2,6 +2,8 @@ project-x
 =========
 Visualizing Kepler exoplanet data
 
+Demo from Hack the Universe presentation: http://youtu.be/vzahEZRjT10
+
 
 The Kepler Mission
 ---------
